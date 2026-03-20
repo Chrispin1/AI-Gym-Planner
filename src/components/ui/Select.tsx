@@ -1,29 +1,42 @@
-import { type InputHTMLAttributes, forwardRef } from "react";
+import { type SelectHTMLAttributes, forwardRef } from "react";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
+interface SelectOption {
+  value: string;
+  label: string;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className = "", label, error, id, ...props }, ref) => {
+interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+  label?: string;
+  error?: string;
+  options: SelectOption[];
+}
+
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(
+  ({ className = "", label, error, id, options, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-1.5">
         {label && (
-          <label htmlFor={id} className="text-sm font-medium text-foreground">
+          <label
+            htmlFor={id}
+            className="text-md font-medium text-foreground capitalize">
             {label}
           </label>
         )}
-        <input
+        <select
           ref={ref}
           id={id}
-          className={`w-full px-4 py-2.5 bg-card border border-border rounded-xl text-foreground placeholder:text-muted focus:outline-none focus:border-accent transition-colors ${className}`}
-          {...props}
-        />
+          className={`w-full px-4 py-2.5 bg-card border text-muted/80 border-border rounded-xl focus:outline-none focus:border-accent transition-colors cursor-pointer ${className}`}
+          {...props}>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
         {error && <span className="text-sm text-red-500">{error}</span>}
       </div>
     );
   },
 );
 
-Input.displayName = "Input";
+Select.displayName = "Select";

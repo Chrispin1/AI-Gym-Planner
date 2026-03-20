@@ -9,8 +9,8 @@ export default function Navbar() {
   return (
     <header className="border-b border-border fixed top-0 left-0 backdrop-blur-md bg-background/50 w-full z-50">
       <div className="flex items-center justify-between h-16 mx-auto px-4 md:px-20">
-        <Link to="/" className="flex items-center gap-2 ">
-          <Dumbbell className="w-8 h-8 text-accent" />
+        <Link to="/" className="flex items-center gap-1 md:gap-2 mr-4 ">
+          <Dumbbell className="w-6 h-6 md:w-8 md:h-8 text-accent" />
           <span className="font-bold font-grotesque text-md md:text-xl">
             GymAI
           </span>
